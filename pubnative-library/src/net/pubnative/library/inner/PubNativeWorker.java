@@ -80,7 +80,7 @@ public class PubNativeWorker
     private static ImageReshaper                reshaper                        = null;
     private static PubNativeListener            listener;
     private static ScheduledExecutorService     exec;
-    private static final HashSet<WorkerItem<?>> workerItems                     = new HashSet<>();
+    private static final HashSet<WorkerItem<?>> workerItems                     = new HashSet<WorkerItem<?>>();
     private static int                          imageCounter;
     private static boolean                      loaded;
     public static String                        broadcastInterstitialDismissKey = "popup_vindow_dismiss";
@@ -107,7 +107,8 @@ public class PubNativeWorker
         {
             ctx = holders[0].getView().getContext().getApplicationContext();
             imageFetcher = new ImageFetcher(ctx);
-            new GetAdsTask<>(ctx, req, makeAdsResultListener(listener, holders)).execute();
+            //new GetAdsTask<>(ctx, req, makeAdsResultListener(listener, holders)).execute();
+            new GetAdsTask<Ad>(ctx, req, makeAdsResultListener(listener, holders)).execute();
         }
         else
         {

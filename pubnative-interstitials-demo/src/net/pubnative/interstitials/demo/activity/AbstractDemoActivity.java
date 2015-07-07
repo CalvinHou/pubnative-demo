@@ -77,6 +77,7 @@ public abstract class AbstractDemoActivity extends Activity implements
 
     //
     public static boolean backgroundRedirectEnabled = true;
+    ///public static boolean backgroundRedirectEnabled = false;
 
     protected final void showInPlayStore(NativeAd ad)
     {

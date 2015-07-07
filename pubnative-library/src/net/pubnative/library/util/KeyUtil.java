@@ -46,7 +46,7 @@ public class KeyUtil
     {
         if (keys == null)
         {
-            ArrayList<String> list = new ArrayList<>();
+            ArrayList<String> list = new ArrayList<String>();
             for (Class<?> cl : new Class<?>[]
             { RequestInfo.class, UserIdentifier.class })
             {
@@ -74,6 +74,40 @@ public class KeyUtil
 
     public static String putDefaultVal(Context ctx, String key)
     {
+        ///houhhh 2015.07.04
+        if (key.equalsIgnoreCase(RequestInfo.BUNDLE_ID))
+            return IdUtil.getPackageName(ctx);
+        else if (key.equalsIgnoreCase(RequestInfo.USER_AGENT))
+            return IdUtil.getUserAgent(ctx);
+        else if (key.equalsIgnoreCase(RequestInfo.OS))
+            return "android";
+        else if (key.equalsIgnoreCase(RequestInfo.OS_VERSION))
+            return Build.VERSION.RELEASE;
+        else if (key.equalsIgnoreCase(RequestInfo.DEVICE_MODEL))
+            return Build.MODEL;
+        else if (key.equalsIgnoreCase(RequestInfo.LOCALE))
+            return Locale.getDefault().getLanguage();
+        else if (key.equalsIgnoreCase(RequestInfo.DEVICE_RESOLUTION)) {
+            DisplayMetrics dm = ctx.getResources().getDisplayMetrics();
+            return dm.widthPixels + "x" + dm.heightPixels;
+        }
+        else if (key.equalsIgnoreCase(RequestInfo.DEVICE_TYPE))
+            return getSW(ctx) < 600 ? "phone" : "tablet";
+        else if (key.equalsIgnoreCase(RequestInfo.LAT)) {
+            Location lat = IdUtil.getLastLocation(ctx);
+            return (lat != null) ? String.valueOf(lat.getLatitude()) : null;
+        }
+        else if (key.equalsIgnoreCase(RequestInfo.LONG)) {
+            Location lon = IdUtil.getLastLocation(ctx);
+            return (lon != null) ? String.valueOf(lon.getLongitude()) : null;
+        }
+        else if (key.equalsIgnoreCase(UserIdentifier.ANDROID_ADVERTISER_ID))
+            return getAdvId(ctx);
+        else if (key.equalsIgnoreCase(UserIdentifier.NO_USER_ID))
+            return isEmpty(getAdvId(ctx)) ? "1" : "0";
+        else
+            return null;
+        /*
         switch (key)
         {
         case RequestInfo.BUNDLE_ID:
@@ -106,6 +140,7 @@ public class KeyUtil
         default:
             return null;
         }
+        */
     }
 
     private static String getAdvId(Context ctx)

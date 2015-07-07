@@ -52,7 +52,7 @@ public class GetAdsTask<T extends Ad> extends SimpleAsyncTask<ArrayList<T>>
             cls = NativeAd.class;
         break;
         }
-        serializer = new JSONSerializer<>(cls, ctx);
+        serializer = new JSONSerializer<T>((Class)cls, ctx);
     }
 
     @Override
